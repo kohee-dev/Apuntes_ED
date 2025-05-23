@@ -146,8 +146,203 @@ Es posible que tengamos alguna relación en la que sea necesario añadir algún 
 
 Especifica en la relación entre Alumno y Modulo el curso al que pertenece la matricula y las notas obtenidas durante el curso. 
 
+### Como pasar los requisitos de un sistema a un Diagrama de Clases
 
 
 
+Empezamos identificando objetos que serán las clases del diagrama examinando el planteamiento del problema. Los objetos se determinan subrayando cada nombre o cláusula nominal e introduciéndola en una tabla simple. Los sinónimos deben destacarse. Pero, ¿qué debemos buscar una vez que se han aislado todos los nombres? Buscamos sustantivos que puedan corresponder con las siguientes categorías:
 
++ **Entidades externas** (por ejemplo: otros sistemas, dispositivos, personas) que producen o consumen información a usar por un sistema computacional.
++ **Elementos** (por ejemplo: informes, presentaciones, cartas, señales) que son parte del dominio de información del problema.
++ **Ocurrencias o sucesos** (por ejemplo: una transferencia de propiedad o la terminación de una serie de movimientos en un robot) que ocurren dentro del contexto de una operación del sistema.
++ **Papeles o roles** (por ejemplo: director, ingeniero, vendedor) desempeñados por personas que interactúan con el sistema.
++ **Unidades organizacionales** (por ejemplo: división, grupo, equipo) que son relevantes en una aplicación.
++ **Lugares** (por ejemplo: planta de producción o muelle de carga) que establecen el contexto del problema y la función general del sistema.
++ **Estructuras** (por ejemplo: sensores, vehículos de cuatro ruedas u ordenadores) que definen una clase de objetos o, en casos extremos, clases relacionadas de objetos.
+
+Cuando estemos realizando este proceso debemos estar pendientes de no incluir en la lista cosas que no sean objetos, como operaciones aplicadas a otro objeto, por ejemplo, "inversión de imagen" producirá un objeto en el ámbito del problema, pero en la implementación dará origen a un método. También es posible detectar dentro de los sustantivos atributos de objetos, cosa que también indicaremos en la tabla.
+
+Cuando tengamos la lista completa habrá que estudiar cada objeto potencial para ver si, finalmente, es incluido en el diagrama. Para ayudarnos a decidir podemos utilizar los siguientes criterios:
+
++ La información del objeto es necesaria para que el sistema funcione.
++ El objeto posee un **conjunto de atributos** que podemos encontrar en cualquier ocurrencia del objeto. Si sólo aparece un atributo normalmente se rechazará y será añadido como atributo de otro objeto.
++ El objeto tiene un **conjunto de operaciones** identificables que pueden cambiar el valor de sus atributos y son comunes a cualquier ocurrencia del objeto.
++ Es una entidad externa que consume o produce información esencial para la producción de cualquier solución en el sistema.
+
+El objeto se incluye si cumple todos (o casi todos) los criterios.
+
+#### Atributos
+
+Definen al objeto en el contexto del sistema, es decir, el mismo objeto en sistemas diferentes tendría diferentes atributos, por lo que debemos buscar en el enunciado o en nuestro propio conocimiento, características que tengan sentido para el objeto en el contexto que se analiza. Deben contestar a la pregunta *"¿Qué elementos (compuestos y/o simples) definen completamente al objeto en el contexto del problema actual?"*
+
+#### Operaciones
+
+Describen el comportamiento del objeto y modifican sus características de alguna de estas formas:
+
++ Manipulan los datos.
++ Realizan algún cálculo.
++ Monitorizan un objeto frente a la ocurrencia de un suceso de control.
+
+Se obtienen analizando verbos en el enunciado del problema.
+
+#### Relaciones
+
+Por último habrá que estudiar de nuevo el enunciado para obtener cómo los objetos que finalmente hemos descrito se relacionan entre sí. Para facilitar el trabajo podemos buscar mensajes que se pasen entre objetos y las relaciones de composición y agregación. Las relaciones de herencia se suelen encontrar al comparar objetos semejantes entre sí, y constatar que tengan atributos y métodos comunes.
+
+Cuando se ha realizado este procedimiento no está todo el trabajo hecho, es necesario revisar el diagrama obtenido y ver si todo cumple con las especificaciones. No obstante siempre se puede refinar el diagrama completando aspectos del ámbito del problema que no aparezcan en la descripción recurriendo a entrevistas con los clientes o a nuestros conocimientos de la materia. 
+
+## Diagramas de comportamiento
+
+
+
+En los puntos anteriores hemos visto como crear un diagrama de clases para un problema determinado, esto nos ayuda a ver el problema con otra perspectiva y descubrir información nueva, sin embargo no tiene en cuenta elementos como la creación y destrucción de objetos, el paso de mensajes entre ellos y el orden en que deben hacerse, qué funcionalidad espera un usuario poder realizar, o como influyen elementos externos en nuestro sistema. Un diagrama de clases nos da información estática pero no dice nada acerca del comportamiento dinámico de los objetos que lo forman, para incluir éste tipo de información utilizamos los diagramas de comportamiento que incluyen:
+
++ Diagramas de casos de uso.
++ Diagramas de actividad.
++ Diagramas de máquinas de estado.
++ Diagramas de interacción.
+    + Diagramas de secuencia.
+    + Diagramas de comunicación.
+    + Diagramas de interacción.
+    + Diagramas de tiempo.
+
+### Diagramas de casos de uso
+
+Los diagramas de casos de uso son un elemento fundamental del análisis de un sistema desde la perspectiva de la orientación a objetos porque resuelven uno de los principales problemas en los que se ve envuelto el proceso de producción de software: la falta de comunicación entre el equipo de desarrollo y el equipo que necesita de una solución software. Un diagrama de casos de uso nos ayuda a determinar QUÉ puede hacer cada tipo diferente de usuario con el sistema, en una forma que los no versados en el mundo de la informática o, más concretamente el desarrollo de software, pueda entender.
+
+Los diagramas de casos de uso documentan el comportamiento de un sistema desde el punto de vista del usuario. Por lo tanto los casos de uso determinan los **requisitos funcionales** del sistema, es decir, representan las funciones que un sistema puede ejecutar.
+
+Un diagrama de casos de uso es una visualización gráfica de los requisitos funcionales del sistema, que está formado por casos de uso (se representan como elipses) y los actores que interactúan con ellos (se representan como monigotes). Su principal función es dirigir el proceso de creación del software, definiendo qué se espera de él, y su ventaja principal es la facilidad para interpretarlos, lo que hace que sean especialmente útiles en la comunicación con el cliente.
+
+>*Recuerda*
+>
+>**Requisito funcional**
+>
+>Un requisito es una condición que debe cumplir un proyecto software. Los requisitos funcionales definen las acciones fundamentales que debe realizar el software al recibir información, procesarla y producir resultados. Suelen venir definidos por el cliente.
+
+#### Actores
+
+>Los **actores** representan un tipo de usuario del sistema. Se entiende como usuario cualquier cosa externa que interactúa con el sistema. No tiene por qué ser un ser humano, puede ser otro sistema informático o unidades organizativas o empresas. 
+
+Siempre hay que intentar independizar los actores de la forma en que se interactúa con el sistema. Por ejemplo, un usuario del sistema puede interpretar diferentes roles según la operación que esté ejecutando, cada uno de estos roles representará un actor diferente, es decir, un actor en un diagrama de casos de uso representa un rol que alguien puede estar jugando, no un individuo particular por lo tanto puede haber personas particulares que puedan estar usando el sistema de formas diferentes en diferentes ocasiones. Suele ser útil mantener una lista de los usuarios reales para cada actor.
+
+Tipos de actores:
+
++ **Primarios**: interaccionan con el sistema para explotar su funcionalidad. Trabajan directa y frecuentemente con el software.
++ **Secundarios**: soporte del sistema para que los primarios puedan trabajar. Son precisos para alcanzar algún objetivo.
++ **Iniciadores**: no interactúan con el sistema pero desencadenan el trabajo de otro actor.
+
+Los actores se representan mediante la siguiente figura:
+
+![Actor](ED06_CONT_R03_actor.png)
+
+Es posible que haya casos de uso que no sean iniciados por ningún usuario, o algún otro elemento software, en ese caso se puede crear un actor "Tiempo" o "Sistema".
+
+![Descripcion de actores](image.png)
+
+#### Casos de uso 
+
+ Se utilizan casos de uso para especificar tareas que deben poder llevarse a cabo con el apoyo del sistema que se está desarrollando.
+
+Un caso de uso especifica una secuencia de acciones, incluyendo variantes, que el sistema puede llevar a cabo, y que producen un resultado observable de valor para un actor concreto. El conjunto de casos de uso forma el "comportamiento requerido" de un sistema.
+
+El objetivo principal de elaborar un diagrama de casos de uso no es crear el diagrama en sí, sino la descripción que de cada caso se debe realizar, ya que esto es lo que ayuda al equipo de desarrollo a crear el sistema a posteriori. Para hacer esto utilizamos, sobre todo otros diagramas que permiten describir la dinámica del caso de uso, como el diagrama de secuencia que veremos después, y una descripción textual, en la que se deben incluir, al menos, los siguientes datos (a los que se denomina contrato):
+
++ **Nombre**: nombre del caso de uso.
++ **Actores**: aquellos que interactúan con el sistema a través del caso de uso.
++ **Propósito**: breve descripción de lo que se espera que haga.
++ **Precondiciones**: aquellas que deben cumplirse para que pueda llevarse a cabo el caso de uso.
++ **Flujo normal**: flujo normal de eventos que deben cumplirse para ejecutar el caso de uso exitosamente, desde el punto de vista del actor que participa y del sistema.
++ **Flujo alternativo**: flujo de eventos que se llevan a cabo cuando se producen casos inesperados o poco frecuentes. No se deben incluir aquí errores como escribir un tipo de dato incorrecto o la omisión de un parámetro necesario.
++ **Postcondiciones**: las que se cumplen una vez que se ha realizado el caso de uso.
+
+
+![](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+
+
+#### Relaciones
+
+Los diagramas de casos de uso son grafos no conexos en los que los nodos son actores y casos de uso, y las aristas son las relaciones que existen entre ellos. Representan qué actores realizan las tareas descritas en los casos de uso, en concreto qué actores inician un caso de uso. Pero además existen otros tipos de relaciones que se utilizan para especificar relaciones más complejas, como uso o herencia entre casos de uso o actores.
+
+Existen diferentes tipos de relaciones entre elementos:
+
++ **Asociación**: representa la relación entre el actor que lo inicia y el caso de uso.
++ **Inclusión**: se utiliza cuando queremos dividir una tarea de mayor envergadura en otras más sencillas, que son utilizadas por la primera. Representa una relación de uso, y son muy útiles cuando es necesario reutilizar tareas.
++ **Extensión**: se utiliza para representar relaciones entre un caso de uso que requiere la ejecución de otro en determinadas circunstancias.
++ **Generalización**: se utiliza para representar relaciones de herencia entre casos de uso o actores.
+
+**Asociación o interacción**
+
+Hay una asociación entre un actor y un caso de uso si el actor interactúa con el sistema para llevar a cabo el caso de uso o para iniciarlo.
+
+Una asociación se representa mediante un linea continua que une un actor con un caso de uso. Por ejemplo, un usuario de un sistema de venta por Internet puede hacer un pedido, lo que se representa del siguiente modo: 
+
+![Asociacion](ED06_CONT_R07_asociacion_miniatura.png)
+
+**Generalización**
+
+ Es posible que, igual que con los diagramas de clases, existan casos de uso que tengan comportamientos semejantes a otros que los modifican o completan de alguna manera. El caso base se define de forma abstracta y los hijos heredan sus características añadiendo sus propios pasos o modificando alguno. Normalmente la herencia se utiliza menos en diagramas de casos de uso que en diagramas de clases.
+
+Por ejemplo, el usuario del sistema de venta por Internet puede a su vez darse de alta en la página web para que tengan sus datos registrados a la hora de hacer el pedido, en este caso el usuario es la generalización del socio. Ambos actores pueden hacer un pedido, pero solo el socio puede modificar sus datos en el sistema. 
+
+![Gne](ED06_CONT_R08_herencia_miniatura.png)
+
+**Extensión**
+
+ Se utiliza una relación entre dos casos de uso de tipo "extends" cuando se desea especificar que el comportamiento de un caso de uso es diferente dependiendo de ciertas circunstancias.
+
+La principal función de esta relación es simplificar el flujo de casos de uso complejos. Se utiliza cuando existe una parte del caso de uso que se ejecuta sólo en determinadas ocasiones, pero no es imprescindible para su completa ejecución. Cuando un caso de uso extendido se ejecuta, se indica en la especificación del caso de uso como un punto de extensión. Los puntos de extensión se pueden mostrar en el diagrama de casos de uso.
+
+Por ejemplo, cuando un usuario hace un pedido si no es socio se le ofrece la posibilidad de darse de alta en el sistema en ese momento, pero puede realizar el pedido aunque no lo sea. 
+
+![alt text](relacion_entre_casos_de_uso.gif)
+
+
+**Inclusión**
+
+
+
+>Se incluye una relación entre dos casos de uso de tipo **"include"** cuando la ejecución del caso de uso incluido se da en la rutina normal del caso que lo incluye.
+
+Esta relación es muy útil cuando se desea especificar algún comportamiento común en dos o más casos de uso, aunque es frecuente cometer el error de utilizar esta técnica para hacer subdivisión de funciones, por lo que se debe tener mucho cuidado cuando se utilice.
+
+Por ejemplo, a la hora de hacer un pedido se debe buscar la información de los artículos para obtener el precio, es un proceso que necesariamente forma parte del caso de uso, sin embargo también forma parte de otros, como son el que visualiza el catálogo de productos y la búsqueda de un artículo concreto, y dado que tiene entidad por sí solo se separa del resto de casos de uso y se incluye en los otros tres.
+
+Las ventajas de esta asociación son:
+
++ Las descripciones de los casos de uso son más cortas y se entienden mejor.
++ La identificación de funcionalidad común puede ayudar a descubrir el posible uso de componentes ya existentes en la implementación.
+
+Las desventajas son:
+
++ La inclusión de estas relaciones hace que los diagramas sean más difíciles de leer, sobre todo para los clientes.
+
+>Cuando usamos relaciones de inclusión o extensión no podemos olvidar que los casos de uso extendidos o incluidos deben cumplir con las características propias de un caso de uso, es decir, deben representar un flujo de actividad completo desde el punto de vista de lo que un actor espera que el sistema haga por él, así como no utilizar estas herramientas sólo para descomponer un caso de uso de envergadura en otros más pequeños, piedra angular del diseño estructurado y no del orientado a objetos.
+
+![alt text](pensando_en_el_reuso.gif)
+
+### Ejercicio
+
+Dado un sistema de pedidos a restaurantes, se pide realizar un diagrama de casos de uso que refleje el siguiente comportamiento.
+
++ El cliente puede buscar una comida
++ El cliente puede solicitar un encargo a un restaurante
++ Se necesita una cuenta de usuario para solicitar encargos.
++ Un restaurante puede ver los pedidos que tiene pendientes.
+
+### Ejercicio 2
+
+Dado un sistema de una tienda de videojuegos online, se pide realizar un diagrama de casos de uso que refleje el siguiente comportamiento.
+
+- Buscar videojuegos. La búsqueda podrá ser modificada en función a las siguientes categorías:
+
+    - RPG
+    - Terror
+    - Acción
+
+- Comprar un juego concreto
+- La compra de un juego tendrá un proceso de validación.
+- Todas las compras tendrán que estar reflejadas en una base de datos.
 
